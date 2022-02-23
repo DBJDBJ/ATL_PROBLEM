@@ -43,8 +43,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
   UNREFERENCED_PARAMETER(nCmdShow);
 
   __try {
+    // in there we use normal try/throw/catch
     app_run_();
-  } // eof __try
+  } // in we here catch only SE aka Structured Exceptions
   __except (EXCEPTION_EXECUTE_HANDLER) {
     PRINT("We are here because something has raised an SE exception.");
   }
@@ -56,9 +57,9 @@ One should also create a [minidump](https://docs.microsoft.com/en-us/windows/win
 
 ### ATL code change
 
-Ultimately to make simple array and simple map in ATL, not raise Structured Exceptions, and behave like their standard twins, seems like quite a trivial code change. 
+Ultimately to make simple array and simple map in ATL, not raise Structured Exceptions, and behave like their standard twins, seems like quite a trivial code change. There might be other ATL code with the same or similar issue. I do not know.
 
-NOTE: if `_ATL_NO_EXCEPTIONS` is used there is no CPP unwinding. In that case and in RELEASE builds, SEH will/should be used.
+NOTE: if `_ATL_NO_EXCEPTIONS` is used there is no CPP unwinding. In that case and in RELEASE builds, SEH will/should be always used.
 
 In DEBUG builds, wrong/bad code always asserts, using standard [UCRT](https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/assert-asserte-assert-expr-macros?view=msvc-170) `_ASSERTE` message box. Called from [`ATLASSERT`](https://docs.microsoft.com/en-us/cpp/atl/reference/debugging-and-error-reporting-macros?view=msvc-170)
 

@@ -43,9 +43,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
   UNREFERENCED_PARAMETER(nCmdShow);
 
   __try {
-    // in there we use normal try/throw/catch
+    // in there use normal try/throw/catch
     app_run_();
-  } // in we here catch only SE aka Structured Exceptions
+  } // in here catch only SE aka Structured Exceptions
   __except (EXCEPTION_EXECUTE_HANDLER) {
     PRINT("We are here because something has raised an SE exception.");
   }

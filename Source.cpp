@@ -103,7 +103,7 @@ static void app_run_ (void)
     The issue is in RELEASE builds CSimpleArray and CAtlArray behave fundamentaly differently
     due to the error handling difference.
 
-    The problem is in ATL::CSimpleArray operator []
+    The difference is in ATL::CSimpleArray operator []
 
     T& operator[] (_In_ int nIndex)
         {
@@ -111,13 +111,12 @@ static void app_run_ (void)
                 if(nIndex < 0 || nIndex >= m_nSize)
                 {
                         _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);
-            // core of the problem is standard not simple atl array
-            // has here
-            // AtlThrow(E_INVALIDARG);
-            // instead of _AtlRaiseException
-            // thus it throws CAtlException, insted of raising Structured
-    Exception
-            // thus behaving fundamentaly differently from a simple array
+// core of the difference is standard not simple atl array
+// uses here: AtlThrow(E_INVALIDARG);
+// instead of _AtlRaiseException()
+// thus it throws CAtlException, 
+// insted of raising Structured Exception
+// thus behaving fundamentaly differently from a simple array
                 }
                 return m_aT[nIndex];
         }
@@ -128,7 +127,7 @@ static void app_run_ (void)
     PRINT("\nException: ", x.what(), "\n");
   }
 #ifndef USING_SIMPLE_ATL_ARR
-  // using  ATL::CSimpleArray this is not even defined
+  // using  ATL::CSimpleArray this exception type is not even defined
   catch (CAtlException& atlx_) {
     // in RELEASE builds and using ATL::CAtlArray
     // we land here; as expected

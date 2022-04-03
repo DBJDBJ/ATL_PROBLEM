@@ -3,7 +3,7 @@
 
 ## How to use
 
-> In case  your VS Code can not find ATL headers. For having ATL on yer local machine please start from  [here](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/). I think WIN10 SDK is all you need.
+> In case  your VS Code can not find ATL headers. Please use Visual Studio.
 
 Code is short and simple.
 ```cpp
